@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TARpv24__1_;
 
 namespace TARpv24Ckeel
 {
@@ -25,20 +26,41 @@ namespace TARpv24Ckeel
             {
                 Console.WriteLine(nimi);
             }
-
+            int[] arvud = new int[10];
             int j = 0;
             while (j<10)
             {
-                Console.WriteLine(j+1);
+                Console.WriteLine(j + 1);
+                arvud[j] = rnd.Next(1, 101);
                 j++;
+
             }
+            foreach(int arv in arvud)
+            {
+                Console.WriteLine(arv); 
+            }
+
+            List<Isik> isikud = new List<Isik>();
             j=0;
             do
             {
-                Console.WriteLine(j+1);
+                Console.WriteLine(j + 1);
+                Isik isik = new Isik();
+                Console.Write("Eesnimi: ");
+                isik.eesnimi = Console.ReadLine();
+                isikud.Add(isik);
                 j++;
             }
-            while (j<10);
+            while (j < 10);
+            isikud.Sort((x, y) => x.eesnimi.CompareTo(y.eesnimi));
+            Console.WriteLine($"Kokku on {isikud.Count()} isikud");
+            foreach (Isik isik in isikud)
+            {
+                isik.Prindi_andmed();
+            }    
+            Console.WriteLine($"Kolmandal kohal on {isikud[2].eesnimi} isik");
+            
+
 
             int kuu_number = rnd.Next(1, 12);
             string nimetus = Osa1_funktisoonid.Kuu_nimetus(kuu_number);
