@@ -1,70 +1,52 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TARpv24Ckeel
+namespace TARpv24__1_
 {
-    internal class Osa1_funktisoonid
+    // Пример базовой функции
+    public static class Osa1_funktsioonid
     {
-        public static float Kalkulator(float arv1, float arv2)
+        public static float Kalkulaator(float arv1, float arv2)
         {
             float k = arv1 * arv2;
             return k;
         }
-        public static string Kuu_nimetus(int kuu_nr)
+
+        public static string Kuu_nimetus(int kuuNr)
         {
-            string kuu = "";
-            switch (kuu_nr)
-            {
-                case 1: kuu = "Jaanuar"; break;
-                case 2: kuu = "Veebruar"; break;
-                case 3: kuu = "Märts"; break;
-                case 4: kuu = "Aprill"; break;
-                case 5: kuu = "Mai"; break;
-                case 6: kuu = "Juuni"; break;
-                case 7: kuu = "Juuli"; break;
-                case 8: kuu = "August"; break;
-                case 9: kuu = "September"; break;
-                case 10: kuu = "Oktoober"; break;
-                case 11: kuu = "November"; break;
-                case 12: kuu = "Detsember"; break;
-                default:
-                    kuu = "???"; Console.WriteLine("nuh uh");
-                    break;
-            }
-            return kuu;
-        }
-
-        public static string Hooaeg(int kuu_nr)
-        {
-            string hoo = "";
-            if (kuu_nr == 1 || kuu_nr == 2 || kuu_nr == 12) //&& - and. || - or
-            {
-                hoo = "Talv";
-            }
-            else if (kuu_nr > 2 && kuu_nr < 6)
-            {
-                hoo = "Kevad";
-            }
-
-            else if (kuu_nr > 5 && kuu_nr < 9)
-            {
-                hoo = "Suvi";
-            }
-
-            else if (kuu_nr > 8 && kuu_nr < 12) //9,10,11
-            {
-                hoo = "Sügis";
-            }
+            string[] kuud = {
+                "jaanuar","veebruar","märts","aprill","mai","juuni",
+                "juuli","august","september","oktoober","november","detsember"
+            };
+            if (kuuNr >= 1 && kuuNr <= 12)
+                return kuud[kuuNr - 1];
             else
+                return "Vale kuu number";
+        }
+    }
+
+    public class ArvuToo
+    {
+        public int[] GenereeriRuudud(int min, int max)
+        {
+            Random rnd = new Random();
+            int N = rnd.Next(min, max + 1);
+            int M = rnd.Next(min, max + 1);
+
+            Console.WriteLine("Genereeritud arvud: " + N + " ja " + M);
+
+            int start = Math.Min(N, M);
+            int end = Math.Max(N, M);
+
+            int[] ruudud = new int[end - start + 1];
+
+            for (int i = 0; i < ruudud.Length; i++)
             {
-                hoo = "???";
+                int arv = start + i;
+                ruudud[i] = arv * arv;
+                Console.WriteLine(arv + " -> " + ruudud[i]);
             }
-            return hoo;
+
+            return ruudud;
         }
     }
 }
-
-
