@@ -8,7 +8,7 @@ namespace TARpv24__1_
 {
     internal class Isik
     {
-        public string eesnimi;
+        public string eesnimi = "";
         public string perenimi="Tundmatu";
         public int synniaasta=2000;
         public Isik() { }
