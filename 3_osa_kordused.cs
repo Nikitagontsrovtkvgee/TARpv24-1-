@@ -93,3 +93,18 @@ class Inimene
         return Tuple.Create(summa, keskmine, vanim, noorim);
     }
 }
+
+//harjutus 4
+public class string KuniMarksonani(string marksõna)
+{
+    string fraas = "";
+    do
+    {
+        Console.WriteLine("Arvate ära");
+        fraas = Console.ReadLine();
+        while (fraas.ToLower() != marksõna.ToLower()) ;
+        return fraas;
+    }
+}
+
+//harjutus 5
