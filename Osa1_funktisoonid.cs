@@ -66,3 +66,23 @@ namespace TARpv24Ckeel
         }
     }
 }
+
+// 3. Nimed ja vanused
+List<Inimene> inimesed = new List<Inimene>();
+
+for (int i = 0; i < 5; i++)
+{
+    Console.Write($"Sisesta {i+1}. nimi: ");
+    string nimi = Console.ReadLine();
+
+    Console.Write("Sisesta vanus: ");
+    int vanus = int.Parse(Console.ReadLine());
+
+    inimesed.Add(new Inimene(nimi, vanus));
+}
+
+var statistika = Inimene.Statistika(inimesed);
+Console.WriteLine($"Vanuste summa: {statistika.Item1}");
+Console.WriteLine($"Keskmine vanus: {statistika.Item2:F2}");
+Console.WriteLine($"Vanim: {statistika.Item3.Nimi}, {statistika.Item3.Vanus} a.");
+Console.WriteLine($"Noorim: {statistika.Item4.Nimi}, {statistika.Item4.Vanus} a.");
