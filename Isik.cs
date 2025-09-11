@@ -1,33 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TARpv24__1_
 {
-    internal class Isik
+    public class Inimene
     {
-        public string eesnimi = "";
-        public string perenimi="Tundmatu";
-        public int synniaasta=2000;
-        public Isik() { }
+        public string Nimi { get; set; }
+        public int Vanus { get; set; }
 
-        public Isik(string eesnimi, string perenimi)
+        public Inimene(string nimi, int vanus)
         {
-            this.eesnimi = eesnimi;
-            this.perenimi = perenimi;
-        }
-        public void Prindi_andmed()
-        {
-            Console.WriteLine($"Isiku andmed: {eesnimi} {perenimi}, Sündinud: {synniaasta}");
+            Nimi = nimi;
+            Vanus = vanus;
         }
 
+        public static Tuple<int, double, Inimene, Inimene> Statistika(List<Inimene> inimesed)
+        {
+            int summa = 0;
+            foreach (var inimene in inimesed)
+            {
+                summa += inimene.Vanus;
+            }
 
+            double keskmine = (double)summa / inimesed.Count;
 
+            // Leia vanim ja noorim
+            Inimene vanim = inimesed[0];
+            Inimene noorim = inimesed[0];
 
+            foreach (var inimene in inimesed)
+            {
+                if (inimene.Vanus > vanim.Vanus)
+                    vanim = inimene;
+                if (inimene.Vanus < noorim.Vanus)
+                    noorim = inimene;
+            }
 
-
-
+            return Tuple.Create(summa, keskmine, vanim, noorim);
+        }
     }
 }
