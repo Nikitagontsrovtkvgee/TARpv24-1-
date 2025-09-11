@@ -36,25 +36,26 @@ class Program
 }
 
 //harjutus 2
-public static double[] Tekstist_arvud()
-{
-    Console.WriteLine("Sisesta arvud koma või tühikuga eraldatult: ");
-    string sisend = Console.ReadLine();
-    char[] eraldajad = new char[] {' '};//
-
-    string[] osad = sisend.Split(eraldajad, String)
-}
-public static Tuple<double, double, double> AnalüüsiArve(double[] arvud)
-{
-    double summa = arvud.Sum();
-    double keskmine = arvud.Average();
-    double korrutis = 1;
-    foreach (double arv in arvud)
+    public static double[] Tekstist_arvud()
     {
-        korrutis *= arv;
+        Console.WriteLine("Sisesta arvud koma või tühikuga eraldatult: ");
+        string sisend = Console.ReadLine();
+        char[] eraldajad = { ' ', ',' };
+        string[] osad = sisend.Split(eraldajad, StringSplitOptions.RemoveEmptyEntries);
+        double[] arvud = Array.ConvertAll(osad, double.Parse);
+        return arvud;
     }
-    return Tuple.Create(summa, keskmine, korrutis);
-}
+    public static Tuple<double, double, double> AnalüüsiArve(double[] arvud)
+    {
+        double summa = arvud.Sum();
+        double keskmine = arvud.Average();
+        double korrutis = 1;
+        foreach (double arv in arvud)
+        {
+            korrutis *= arv;
+        }
+        return Tuple.Create(summa, keskmine, korrutis);
+    }
 
 //harjutus 3
 class Inimene
@@ -95,16 +96,18 @@ class Inimene
 }
 
 //harjutus 4
-public class string KuniMarksonani(string marksõna)
+public static string KuniMarksonani(string marksõna)
 {
     string fraas = "";
     do
     {
         Console.WriteLine("Arvate ära");
         fraas = Console.ReadLine();
-        while (fraas.ToLower() != marksõna.ToLower()) ;
-        return fraas;
     }
+    while (fraas.ToLower() != marksõna.ToLower());
+
+    return fraas;
 }
 
 //harjutus 5
+//public class 
