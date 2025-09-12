@@ -42,5 +42,63 @@ namespace TARpv24__1_
 
             return fraas;
         }
+
+        //harjutus 6
+        public static int SuurimNeliarv(int[] arvud)
+        {
+            // Kontrollime, et kõik oleks 0–9
+            foreach (int arv in arvud)
+            {
+                if (arv < 0 || arv > 9)
+                    throw new ArgumentException("Kõik arvud peavad olema ühekohalised (0–9).");
+            }
+
+            // Sorteerime kahanevas järjekorras
+            Array.Sort(arvud);
+            Array.Reverse(arvud);
+
+            // Moodustame arvu
+            int tulemus = 0;
+            foreach (int n in arvud)
+            {
+                tulemus = tulemus * 10 + n;
+            }
+
+            return tulemus;
+        }
+
+        //harjutus 7
+        public static class Tabel
+        {
+            public static int[,] GenereeriKorrutustabel(int ridadeArv, int veergudeArv)
+            {
+                int[,] korrutustabel = new int[ridadeArv, veergudeArv];
+
+                // Täidame ja väljastame tabeli
+                for (int r = 1; r <= ridadeArv; r++)
+                {
+                    for (int v = 1; v <= veergudeArv; v++)
+                    {
+                        korrutustabel[r - 1, v - 1] = r * v;
+                        Console.Write((r * v).ToString().PadLeft(5));
+                    }
+                    Console.WriteLine();
+                }
+
+                return korrutustabel;
+            }
+
+            public static void OtsiTulemus(int[,] tabel, int a, int b)
+            {
+                if (a <= tabel.GetLength(0) && b <= tabel.GetLength(1))
+                {
+                    Console.WriteLine($"{a} x {b} = {tabel[a - 1, b - 1]}");
+                }
+                else
+                {
+                    Console.WriteLine($"Viga: {a} või {b} ületab tabeli mõõtmeid.");
+                }
+            }
+        }
     }
 }
