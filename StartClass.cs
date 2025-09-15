@@ -20,6 +20,7 @@ namespace TARpv24__1_
                 Console.WriteLine("5. ✅ Ülesanne 4 – Kuni märksõnani");
                 Console.WriteLine("6. ✅ Ülesanne 2 – Maakonnad ja pealinnad");
                 Console.WriteLine("7. ✅ Ülesanne 3 – Õpilased ja hinnete analüüs");
+                Console.WriteLine("8. ✅ Ülesanne 4 – Filmide kogu");
                 Console.WriteLine("0. Välju");
                 Console.Write("Vali: ");
 
@@ -47,6 +48,9 @@ namespace TARpv24__1_
                         break;
                     case "7":
                         ÕpilasedAnalüüs();
+                        break;
+                    case "8":
+                        FilmideKogu();
                         break;
                     case "0":
                         return; // lõpetame programmi
@@ -288,8 +292,64 @@ namespace TARpv24__1_
             Console.WriteLine("\nVajuta Enter, et jätkata...");
             Console.ReadLine();
         }
+
+        //Ül 4
+        static void FilmideKogu()
+        {
+            Console.Clear();
+            Console.WriteLine("Filmide kogu\n");
+
+            // Loome filmide listi
+            List<Film> filmid = new List<Film>
+            {
+                new Film("Inception", 2010, "Sci-Fi"),
+                new Film("The Dark Knight", 2008, "Action"),
+                new Film("Interstellar", 2014, "Sci-Fi"),
+                new Film("The Godfather", 1972, "Drama"),
+                new Film("Avengers: Endgame", 2019, "Action")
+            };
+
+            // 1) Leia kõik Sci-Fi filmid
+            Console.WriteLine("=== Sci-Fi filmid ===");
+            var scifi = filmid.Where(f => f.Zanr == "Sci-Fi").ToList();
+            foreach (var f in scifi)
+                Console.WriteLine($"{f.Pealkiri} ({f.Aasta})");
+
+            // 2) Leia uusim film
+            Console.WriteLine("\n=== Uusim film ===");
+            var uusim = filmid.OrderByDescending(f => f.Aasta).First();
+            Console.WriteLine($"{uusim.Pealkiri} ({uusim.Aasta})");
+
+            // 3) Grupeerime žanri järgi
+            Console.WriteLine("\n=== Filmid žanrite kaupa ===");
+            var grupp = filmid.GroupBy(f => f.Zanr);
+            foreach (var g in grupp)
+            {
+                Console.WriteLine($"\nŽanr: {g.Key}");
+                foreach (var f in g)
+                    Console.WriteLine($" - {f.Pealkiri} ({f.Aasta})");
+            }
+
+            Console.WriteLine("\nVajuta Enter, et jätkata...");
+            Console.ReadLine();
+        }
+
+    // Klass Film
+    class Film
+    {
+        public string Pealkiri { get; set; }
+        public int Aasta { get; set; }
+        public string Zanr { get; set; }
+
+        public Film(string pealkiri, int aasta, string zanr)
+        {
+            Pealkiri = pealkiri;
+            Aasta = aasta;
+            Zanr = zanr;
+        }
     }
 
+    // Klass Õpilane (jääb samaks)
     class Õpilane
     {
         public string Nimi { get; set; }
@@ -306,10 +366,7 @@ namespace TARpv24__1_
             return Hinded.Average();
         }
     }
-
-
 }
-
 //Console.OutputEncoding = Encoding.UTF8;
 //Console.BackgroundColor = ConsoleColor.Green;
 //Console.ForegroundColor = ConsoleColor.Blue;
