@@ -18,6 +18,7 @@ namespace TARpv24__1_
                 Console.WriteLine("3. ✅ Ülesanne 6 – Suurim neljakohaline arv");
                 Console.WriteLine("4. ✅ Ülesanne 2 – Tekstist arvud (summa, keskmine, korrutis)");
                 Console.WriteLine("5. ✅ Ülesanne 4 – Kuni märksõnani");
+                Console.WriteLine("6. ✅ Ülesanne 2 – Maakonnad ja pealinnad"); // 🔹 новый пункт
                 Console.WriteLine("0. Välju");
                 Console.Write("Vali: ");
 
@@ -39,6 +40,9 @@ namespace TARpv24__1_
                         break;
                     case "5":
                         KuniMarksonani();
+                        break;
+                    case "6":
+                        MaakonnadJaPealinnad();
                         break;
                     case "0":
                         return; // lõpetame programmi
@@ -171,6 +175,78 @@ namespace TARpv24__1_
             // Tsükkel töötab seni, kuni kasutaja ei kirjuta õiget sõna
             string vastus = Harjutused.KuniMarksonani(marksona);
             Console.WriteLine($"Tubli! Märksõna oli {vastus}");
+
+            Console.WriteLine("\nVajuta Enter, et jätkata...");
+            Console.ReadLine();
+        }
+
+        // === Ülesanne 2: Maakonnad ja pealinnad ===
+        static void MaakonnadJaPealinnad()
+        {
+            Console.Clear();
+            Console.WriteLine("=== Maakonnad ja pealinnad ===");
+
+            Dictionary<string, string> maakonnad = new Dictionary<string, string>()
+            {
+                {"Harjumaa", "Tallinn"},
+                {"Tartumaa", "Tartu"},
+                {"Pärnumaa", "Pärnu"}
+            };
+
+            Console.WriteLine("1 - Leia pealinn maakonna järgi");
+            Console.WriteLine("2 - Leia maakond pealinna järgi");
+            Console.WriteLine("3 - Mängurežiim");
+            Console.Write("Vali: ");
+            string valik = Console.ReadLine();
+
+            if (valik == "1")
+            {
+                Console.Write("Sisesta maakond: ");
+                string mk = Console.ReadLine();
+                if (maakonnad.ContainsKey(mk))
+                    Console.WriteLine("Pealinn: " + maakonnad[mk]);
+                else
+                {
+                    Console.Write("Ei leitud. Lisa pealinn: ");
+                    string pl = Console.ReadLine();
+                    maakonnad[mk] = pl;
+                }
+            }
+            else if (valik == "2")
+            {
+                Console.Write("Sisesta pealinn: ");
+                string pl = Console.ReadLine();
+                bool leitud = false;
+                foreach (var kvp in maakonnad)
+                {
+                    if (kvp.Value == pl)
+                    {
+                        Console.WriteLine("Maakond: " + kvp.Key);
+                        leitud = true;
+                        break;
+                    }
+                }
+                if (!leitud)
+                {
+                    Console.Write("Ei leitud. Lisa maakond: ");
+                    string mk = Console.ReadLine();
+                    maakonnad[mk] = pl;
+                }
+            }
+            else if (valik == "3")
+            {
+                Random rnd = new Random();
+                List<string> keys = new List<string>(maakonnad.Keys);
+                string mk = keys[rnd.Next(keys.Count)];
+
+                Console.Write($"Mis on {mk} pealinn? ");
+                string vastus = Console.ReadLine();
+
+                if (vastus == maakonnad[mk])
+                    Console.WriteLine("Õige!");
+                else
+                    Console.WriteLine("Vale! Õige vastus: " + maakonnad[mk]);
+            }
 
             Console.WriteLine("\nVajuta Enter, et jätkata...");
             Console.ReadLine();
