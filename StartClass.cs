@@ -54,11 +54,11 @@ namespace TARpv24__1_
             }
         }
 
-        // === Ülesanne 1: Kalorite kalkulaator klassidega ===
+        //Ülesanne 1: Kalorite kalkulaator klassidega
         static void KaloriteKalkulaator()
         {
             Console.Clear();
-            Console.WriteLine("=== Kalorite kalkulaator ===");
+            Console.WriteLine("Kalorite kalkulaator");
 
             // Loome nimekiri toodetest (manuaalselt, aga hiljem saab lugeda failist)
             List<Toode> tooted = new List<Toode>
@@ -101,11 +101,11 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-        // === Ülesanne 7: Korrutustabel ===
+        //Ülesanne 7: Korrutustabel
         static void Korrutustabel()
         {
             Console.Clear();
-            Console.WriteLine("=== Korrutustabel ===");
+            Console.WriteLine("Korrutustabel");
 
             Console.Write("Sisesta ridade arv: ");
             int read = int.Parse(Console.ReadLine());
@@ -126,11 +126,11 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-        // === Ülesanne 6: Suurim neljakohaline arv ===
+        //Ülesanne 6: Suurim neljakohaline arv
         static void SuurimNeljaArv()
         {
             Console.Clear();
-            Console.WriteLine("=== Suurim neljakohaline arv ===");
+            Console.WriteLine("Suurim neljakohaline arv");
 
             Console.WriteLine("Sisesta 4 ühekohalist arvu (nt 3 7 1 9): ");
             string[] osad = Console.ReadLine().Split(' ');
@@ -143,11 +143,11 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-        // === Ülesanne 2: Tekstist arvud (summa, keskmine, korrutis) ===
+        //Ülesanne 2: Tekstist arvud (summa, keskmine, korrutis)
         static void TekstistArvud()
         {
             Console.Clear();
-            Console.WriteLine("=== Tekstist arvud ===");
+            Console.WriteLine("Tekstist arvud");
 
             // Sisend (nt "1, 2, 3" või "1 2 3")
             double[] arvud = Harjutused.Tekstist_arvud();
@@ -163,11 +163,11 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-        // === Ülesanne 4: Kuni märksõnani ===
+        //Ülesanne 4: Kuni märksõnani
         static void KuniMarksonani()
         {
             Console.Clear();
-            Console.WriteLine("=== Märksõna arvamine ===");
+            Console.WriteLine("Märksõna arvamine");
 
             Console.Write("Sisesta märksõna: ");
             string marksona = Console.ReadLine();
@@ -180,11 +180,11 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-        // === Ülesanne 2: Maakonnad ja pealinnad ===
+        //Ülesanne 2: Maakonnad ja pealinnad
         static void MaakonnadJaPealinnad()
         {
             Console.Clear();
-            Console.WriteLine("=== Maakonnad ja pealinnad ===");
+            Console.WriteLine("Maakonnad ja pealinnad");
 
             Dictionary<string, string> maakonnad = new Dictionary<string, string>()
             {
