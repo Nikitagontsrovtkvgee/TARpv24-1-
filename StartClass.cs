@@ -21,6 +21,9 @@ namespace TARpv24__1_
                 Console.WriteLine("6. ✅ Ülesanne 2 – Maakonnad ja pealinnad");
                 Console.WriteLine("7. ✅ Ülesanne 3 – Õpilased ja hinnete analüüs");
                 Console.WriteLine("8. ✅ Ülesanne 4 – Filmide kogu");
+                Console.WriteLine("9. ✅ Ülesanne 5 – Arvude massiivi statistika");
+                Console.WriteLine("10. ✅ Ülesanne 6 – Lemmikloomade register");
+                Console.WriteLine("11. ✅ Ülesanne 7 – Valuutakalkulaator");
                 Console.WriteLine("0. Välju");
                 Console.Write("Vali: ");
 
@@ -51,6 +54,15 @@ namespace TARpv24__1_
                         break;
                     case "8":
                         FilmideKogu();
+                        break;
+                    case "9":
+                        Arvude_massiivi_statistika();
+                        break;
+                    case "10":
+                        Lemmikloomade_register();
+                        break;
+                    case "11":
+                        Valuutakalkulaator();
                         break;
                     case "0":
                         return; // lõpetame programmi
@@ -334,39 +346,259 @@ namespace TARpv24__1_
             Console.ReadLine();
         }
 
-    // Klass Film
-    class Film
-    {
-        public string Pealkiri { get; set; }
-        public int Aasta { get; set; }
-        public string Zanr { get; set; }
-
-        public Film(string pealkiri, int aasta, string zanr)
+        //ül5
+        static void Arvude_massiivi_statistika()
         {
-            Pealkiri = pealkiri;
-            Aasta = aasta;
-            Zanr = zanr;
+            Console.Clear();
+            Console.WriteLine("Arvude massiivi statistika\n");
+
+            // Küsi kasutajalt arvud
+            double[] arvud = Tekstist_arvud();
+
+            // Arvuta maksimum, miinimum, summa, keskmine
+            double max = arvud.Max();
+            double min = arvud.Min();
+            double sum = arvud.Sum();
+            double avg = arvud.Average();
+
+            // Loeme, mitu arvu on suuremad kui keskmine
+            int rohkemKuinKeskmine = arvud.Count(a => a > avg);
+
+            // Väljasta tulemused
+            Console.WriteLine($"\nMaksimaalne arv: {max}");
+            Console.WriteLine($"Minimaalne arv: {min}");
+            Console.WriteLine($"Arvude summa: {sum}");
+            Console.WriteLine($"Keskmine: {avg:F2}");
+            Console.WriteLine($"Arve suuremaid kui keskmine: {rohkemKuinKeskmine}");
+
+            // Boonus: järjestatud massiiv
+            Array.Sort(arvud);
+            Console.WriteLine("\nArvud järjestatuna:");
+            foreach (double a in arvud)
+            {
+                Console.Write(a + " ");
+            }
+            Console.WriteLine("\n\nVajuta Enter, et jätkata...");
+            Console.ReadLine();
+        }
+
+        //ül6
+        static void Lemmikloomade_register()
+        {
+            Console.Clear();
+            Console.WriteLine("Arvude massiivi statistika\n");
+
+            Console.Clear();
+            Console.WriteLine("=== Lemmikloomade register ===\n");
+
+            List<Lemmikloom> lemmikud = new List<Lemmikloom>();
+
+            // Küsi vähemalt 5 lemmiklooma andmed
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"Sisesta {i + 1}. lemmiklooma andmed:");
+                Console.Write("Nimi: ");
+                string nimi = Console.ReadLine();
+                Console.Write("Liik (nt kass, koer): ");
+                string liik = Console.ReadLine();
+                Console.Write("Vanus: ");
+                int vanus = int.Parse(Console.ReadLine());
+
+                lemmikud.Add(new Lemmikloom(nimi, liik, vanus));
+                Console.WriteLine();
+            }
+
+            // Lisa valik veel andmeid lisada
+            while (true)
+            {
+                Console.Write("Kas soovid lisada veel lemmikloomi? (jah/ei): ");
+                string vastus = Console.ReadLine().ToLower();
+                if (vastus == "jah")
+                {
+                    Console.WriteLine($"Sisesta lemmiklooma andmed:");
+                    Console.Write("Nimi: ");
+                    string nimi = Console.ReadLine();
+                    Console.Write("Liik: ");
+                    string liik = Console.ReadLine();
+                    Console.Write("Vanus: ");
+                    int vanus = int.Parse(Console.ReadLine());
+
+                    lemmikud.Add(new Lemmikloom(nimi, liik, vanus));
+                    Console.WriteLine();
+                }
+                else
+                    break;
+            }
+
+            // Kuvab kõik kassid
+            Console.WriteLine("\n=== Kõik kassid ===");
+            var kassid = lemmikud.Where(l => l.Liik.ToLower() == "kass").ToList();
+            if (kassid.Count > 0)
+            {
+                foreach (var kass in kassid)
+                    Console.WriteLine($"{kass.Nimi}, {kass.Vanus} aastat");
+            }
+            else
+                Console.WriteLine("Ei leitud ühtegi kassi.");
+
+            // Arvuta keskmine vanus
+            double keskmineVanus = lemmikud.Average(l => l.Vanus);
+            Console.WriteLine($"\nKeskmine vanus: {keskmineVanus:F2} aastat");
+
+            // Leia vanim lemmikloom
+            var vanim = lemmikud.OrderByDescending(l => l.Vanus).First();
+            Console.WriteLine($"Vanim lemmikloom: {vanim.Nimi} ({vanim.Liik}), {vanim.Vanus} aastat");
+
+            // Boonus: otsing nime järgi
+            Console.Write("\nOtsi looma nime järgi: ");
+            string otsiNimi = Console.ReadLine().ToLower();
+            var leitud = lemmikud.Where(l => l.Nimi.ToLower().Contains(otsiNimi)).ToList();
+            if (leitud.Count > 0)
+            {
+                Console.WriteLine("Leitud lemmikloomad:");
+                foreach (var l in leitud)
+                    Console.WriteLine($"{l.Nimi}, {l.Liik}, {l.Vanus} aastat");
+            }
+            else
+                Console.WriteLine("Ei leitud ühtegi looma selle nimega.");
+
+            Console.WriteLine("\nVajuta Enter, et tagasi menüüsse...");
+            Console.ReadLine();
+        }
+
+        //ül7
+        static void Valuutakalkulaator()
+        {
+            Console.Clear();
+            Console.WriteLine("Arvude massiivi statistika\n");
+
+            // Loome valuutad
+            List<Valuuta> valuutad = new List<Valuuta>
+            {
+                new Valuuta("USD", 1.05),   // 1 EUR = 1.05 USD
+                new Valuuta("GBP", 0.87),   // 1 EUR = 0.87 GBP
+                new Valuuta("JPY", 145.0),  // 1 EUR = 145 JPY
+                new Valuuta("CHF", 0.97),   // 1 EUR = 0.97 CHF
+                new Valuuta("EUR", 1.0)
+            };
+
+            // Boonus: mugavam otsing Dictionary abil
+            Dictionary<string, Valuuta> valuutaDict = valuutad.ToDictionary(v => v.Nimetus.ToUpper(), v => v);
+
+            Console.WriteLine("Valuutad: " + string.Join(", ", valuutad.Select(v => v.Nimetus)));
+
+            // Küsi kasutajalt summa ja valuutanimi
+            Console.Write("\nSisesta summa: ");
+            double summa = double.Parse(Console.ReadLine());
+            Console.Write("Sisesta valuutanimi (nt USD): ");
+            string nimetus = Console.ReadLine().ToUpper();
+
+            if (!valuutaDict.ContainsKey(nimetus))
+            {
+                Console.WriteLine("Sellist valuutat ei leitud!");
+                Console.WriteLine("\nVajuta Enter, et tagasi menüüsse...");
+                Console.ReadLine();
+                return;
+            }
+
+            Valuuta val = valuutaDict[nimetus];
+
+            // Arvuta mitu EUR-i see summa on
+            double eurid = summa / val.KurssEurSuhte;
+            Console.WriteLine($"\n{summa} {val.Nimetus} = {eurid:F2} EUR");
+
+            // Arvuta vastupidi: mitu USD saab EUR-i eest
+            if (valuutaDict.ContainsKey("USD"))
+            {
+                double usd = eurid * valuutaDict["USD"].KurssEurSuhte;
+                Console.WriteLine($"{eurid:F2} EUR = {usd:F2} USD");
+            }
+
+            Console.WriteLine("\nVajuta Enter, et tagasi menüüsse...");
+            Console.ReadLine();
+        }
+        
+
+
+        // Funktsioon Tekstist_arvud
+        static double[] Tekstist_arvud()
+        {
+            Console.WriteLine("Sisesta arvud koma või tühikuga eraldatult:");
+            string sisend = Console.ReadLine();
+
+            string[] osad = sisend.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            double[] arvud = new double[osad.Length];
+            for (int i = 0; i < osad.Length; i++)
+            {
+                arvud[i] = double.Parse(osad[i]);
+            }
+
+            return arvud;
+        }
+
+        // Lemmikloom klass
+        class Lemmikloom
+        {
+            public string Nimi { get; set; }
+            public string Liik { get; set; }
+            public int Vanus { get; set; }
+
+            public Lemmikloom(string nimi, string liik, int vanus)
+            {
+                Nimi = nimi;
+                Liik = liik;
+                Vanus = vanus;
+            }
+        }
+
+        // Klass Film
+        class Film
+        {
+            public string Pealkiri { get; set; }
+            public int Aasta { get; set; }
+            public string Zanr { get; set; }
+
+            public Film(string pealkiri, int aasta, string zanr)
+            {
+                Pealkiri = pealkiri;
+                Aasta = aasta;
+                Zanr = zanr;
+            }
+        }
+
+        // Klass Õpilane (jääb samaks)
+        class Õpilane
+        {
+            public string Nimi { get; set; }
+            public List<int> Hinded { get; set; }
+
+            public Õpilane(string nimi, List<int> hinded)
+            {
+                Nimi = nimi;
+                Hinded = hinded;
+            }
+
+            public double Keskmine()
+            {
+                return Hinded.Average();
+            }
+        }
+
+        // Valuuta klass
+        class Valuuta
+        {
+            public string Nimetus { get; set; }
+            public double KurssEurSuhte { get; set; } // 1 EUR = x valuutat
+
+            public Valuuta(string nimetus, double kurssEurSuhte)
+            {
+                Nimetus = nimetus;
+                KurssEurSuhte = kurssEurSuhte;
+            }
         }
     }
-
-    // Klass Õpilane (jääb samaks)
-    class Õpilane
-    {
-        public string Nimi { get; set; }
-        public List<int> Hinded { get; set; }
-
-        public Õpilane(string nimi, List<int> hinded)
-        {
-            Nimi = nimi;
-            Hinded = hinded;
-        }
-
-        public double Keskmine()
-        {
-            return Hinded.Average();
-        }
-    }
-}
+} 
 //Console.OutputEncoding = Encoding.UTF8;
 //Console.BackgroundColor = ConsoleColor.Green;
 //Console.ForegroundColor = ConsoleColor.Blue;
