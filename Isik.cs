@@ -12,14 +12,13 @@ namespace TARpv24__1_
         public double Kaal { get; set; }      // kg
         public double Aktiivsus { get; set; } // 1.2 – 1.9
 
-        // Vanem konstruktor (2 аргумента) — оставляем, чтобы старый код не ломался
+        // Vanem konstruktor (2 аргумента)
         public Inimene(string nimi, int vanus)
         {
             Nimi = nimi;
             Vanus = vanus;
         }
 
-        // Новый конструктор (6 аргументов)
         public Inimene(string nimi, int vanus, string sugu, double pikkus, double kaal, double aktiivsus)
         {
             Nimi = nimi;
@@ -49,7 +48,7 @@ namespace TARpv24__1_
             return BMR * Aktiivsus;
         }
 
-        // Старая статистика (оставил как было)
+        // Старая статистика
         public static Tuple<int, double, Inimene, Inimene> Statistika(List<Inimene> inimesed)
         {
             int summa = 0;
