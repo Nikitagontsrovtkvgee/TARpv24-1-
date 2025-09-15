@@ -18,7 +18,8 @@ namespace TARpv24__1_
                 Console.WriteLine("3. ✅ Ülesanne 6 – Suurim neljakohaline arv");
                 Console.WriteLine("4. ✅ Ülesanne 2 – Tekstist arvud (summa, keskmine, korrutis)");
                 Console.WriteLine("5. ✅ Ülesanne 4 – Kuni märksõnani");
-                Console.WriteLine("6. ✅ Ülesanne 2 – Maakonnad ja pealinnad"); // 🔹 новый пункт
+                Console.WriteLine("6. ✅ Ülesanne 2 – Maakonnad ja pealinnad");
+                Console.WriteLine("7. ✅ Ülesanne 3 – Õpilased ja hinnete analüüs");
                 Console.WriteLine("0. Välju");
                 Console.Write("Vali: ");
 
@@ -43,6 +44,9 @@ namespace TARpv24__1_
                         break;
                     case "6":
                         MaakonnadJaPealinnad();
+                        break;
+                    case "7":
+                        ÕpilasedAnalüüs();
                         break;
                     case "0":
                         return; // lõpetame programmi
@@ -251,7 +255,59 @@ namespace TARpv24__1_
             Console.WriteLine("\nVajuta Enter, et jätkata...");
             Console.ReadLine();
         }
+
+        //Ül 3
+        static void ÕpilasedAnalüüs()
+        {
+            Console.Clear();
+            Console.WriteLine("Õpilased ja hinnete analüüs");
+
+            List<Õpilane> õpilased = new List<Õpilane>()
+            {
+                new Õpilane("Mari", new List<int>{5, 4, 3}),
+                new Õpilane("Juhan", new List<int>{4, 5, 5, 4}),
+                new Õpilane("Kati", new List<int>{3, 2, 4, 5})
+            };
+
+            Console.WriteLine("\nÕpilaste keskmised hinded:");
+            foreach (var õp in õpilased)
+            {
+                Console.WriteLine($"{õp.Nimi}: {õp.Keskmine():F2}");
+            }
+
+            var parim = õpilased.OrderByDescending(o => o.Keskmine()).First();
+            Console.WriteLine($"\nParima keskmisega õpilane: {parim.Nimi}, keskmine {parim.Keskmine():F2}");
+
+            Console.WriteLine("\nÕpilased sorteeritud keskmise järgi:");
+            var sorteeritud = õpilased.OrderByDescending(o => o.Keskmine()).ToList();
+            foreach (var õp in sorteeritud)
+            {
+                Console.WriteLine($"{õp.Nimi}: {õp.Keskmine():F2}");
+            }
+
+            Console.WriteLine("\nVajuta Enter, et jätkata...");
+            Console.ReadLine();
+        }
     }
+
+    class Õpilane
+    {
+        public string Nimi { get; set; }
+        public List<int> Hinded { get; set; }
+
+        public Õpilane(string nimi, List<int> hinded)
+        {
+            Nimi = nimi;
+            Hinded = hinded;
+        }
+
+        public double Keskmine()
+        {
+            return Hinded.Average();
+        }
+    }
+
+
 }
 
 //Console.OutputEncoding = Encoding.UTF8;
