@@ -17,6 +17,16 @@ namespace TARpv24__1_
             return arvud;
         }
 
+        // 🔥 Новая версия для StartClass
+        public static double[] TekstistArvudKasutajalt()
+        {
+            Console.WriteLine("Sisesta arvud koma või tühikuga eraldatult:");
+            string sisend = Console.ReadLine();
+
+            string[] osad = sisend.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return Array.ConvertAll(osad, double.Parse);
+        }
+
         public static Tuple<double, double, double> AnaluusiArve(double[] arvud)
         {
             double summa = arvud.Sum();
@@ -46,18 +56,15 @@ namespace TARpv24__1_
         //harjutus 6
         public static int SuurimNeliarv(int[] arvud)
         {
-            // Kontrollime, et kõik oleks 0–9
             foreach (int arv in arvud)
             {
                 if (arv < 0 || arv > 9)
                     throw new ArgumentException("Kõik arvud peavad olema ühekohalised (0–9).");
             }
 
-            // Sorteerime kahanevas järjekorras
             Array.Sort(arvud);
             Array.Reverse(arvud);
 
-            // Moodustame arvu
             int tulemus = 0;
             foreach (int n in arvud)
             {
@@ -74,7 +81,6 @@ namespace TARpv24__1_
             {
                 int[,] korrutustabel = new int[ridadeArv, veergudeArv];
 
-                // Täidame ja väljastame tabeli
                 for (int r = 1; r <= ridadeArv; r++)
                 {
                     for (int v = 1; v <= veergudeArv; v++)
